@@ -1,32 +1,38 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="">
   <head>
     <meta charset="utf-8">
-    <title>index</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style1-1.css">
-    <script src="1-1.js"></script>
-
+      <title>index</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="style1-1.css">
+      <script src="1-1.js"></script>
   </head>
 
-  <body onload="setTimeout (show,1000)">
-
+  <body onload="setTimeout (showonload,1000)">
     <section id="hidden">
       Hello world.
     </section>
-    <button type="button" id="buttonJoke"onclick="joke()">Joke</button>
+
+    <button type="button" id="buttonJoke"onclick="joke ()">Joke</button>
     <section id="sectionJoke">
     </section>
 
-    <button type="button" id="buttonAjax"onclick="ajaxcall()">Config</button>
-    <section id="sectionAjax">
+    <button type="button" id="buttonReusableJoke"onclick="ReusableJoke ()">ReusableJokeConfig</button>
+    <section id="sectionReusableJoke">
     </section>
 
     <hr></hr>
-    //doesnt work// 
-    <button type="button" id="buttonQSearch"onclick="Qsearch()">Q Search </button>
-    <section id="sectionQSearch">
-    </section>
+    <button class="button" onclick="QSearch()">QSearch</button>
+    <div>
+    </div>
+    <label for="Search"><input type="text"input type="text" name="searcher" id="searcher" value=""/>
+    <button class "Button" onclick="FreeSearch(searcher.value)">Search</button>
+    <footer class="footer">
+      <ul id="list"></ul>
+    </footer>
+
+
+
   </body>
 </html>
