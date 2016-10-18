@@ -8,10 +8,12 @@ function joke() {
   let xhttp = new XMLHttpRequest();
   xhttp.open("GET", "http://api.icndb.com/jokes/random", true);
   xhttp.onreadystatechange = function(event) {
-    response = JSON.parse(event.target.response);
-    document.getElementById("sectionJoke").innerHTML = response.value.joke;
+    if (xhttp.readyState === XMLHttpRequest.DONE) {
+      response = JSON.parse(event.target.response);
+      document.getElementById("sectionJoke").innerHTML = response.value.joke;
+      }
     }
-    xhttp.send();
+  xhttp.send();
 }
 
 function ReusableJoke() {
