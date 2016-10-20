@@ -1,40 +1,32 @@
 import {eventEmitter} from "./classEventEmitter";
-import {Logger} from './classLogger';
-import {movieClass} from './classMovie';
-import {Actor} from './classActor';
+import {Logger} from "./classLogger";
+import {movieClass} from "./classMovie";
+import {Actor} from "./classActor";
+import {Social} from "./Social";
 
 
 let terminator = new classMovie ("Terminator", "1984", "107 minutes");
-  console.log(movie1.title);
-  console.log(movie1.year);
-  console.log(movie1.duration);
-  movie1.play();
+  console.log(terminator.title);
+  console.log(terminator.year);
+  console.log(terminator.duration);
+  terminator.play();
+  terminator.on("play", mylogger.log);
 
 let elCuerpo = new classMovie ("El Cuerpo", "2012", "106 minutes");
-  console.log(movie2.title);
-  console.log(movie2.year);
-  console.log(movie2.duration);
-  movie2.play();
+  console.log(elCuerpo.title);
+  console.log(elCuerpo.year);
+  console.log(elCuerpo.duration);
+  elCuerpo.play();
+  elCuerpo.on("play", mylogger.log);
 
+Object.assign(terminator,Social);
 
-let Social = {
-  share: function (friendName) {
-    console.log("share", this.title, "with", friendName)
-  },
-  like: function (friendName) {
-    console.log(friendName, "likes", this.title)
-  }
-}
-
-Object.assign(movie1,Social);
-
-let arnold = new Actor('Arnold Schwarzenegger', 50);
-let otherCast = [
-  new Actor('Paul Winfield', 50),
-  new Actor('Michael Biehn', 50),
-  new Actor('Linda Hamilton', 50)
+let Cast = [
+  new Actor("Arnold Schwarzenegger", 50);
+  new Actor("Paul Winfield", 50),
+  new Actor("Michael Biehn", 50),
+  new Actor("Linda Hamilton", 50)
 ];
 
-terminator.addCast(arnold);
-terminator.addCast(otherCast);
-console.log("testing "+terminator);
+terminator.addCast(Cast);
+console.log("testing "+ ${terminator});

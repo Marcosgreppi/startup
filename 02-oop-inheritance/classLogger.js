@@ -3,7 +3,7 @@ class Logger {
  }
 
  log (movieExecute, functionName){
-     console.log(movieExecute.title + ' ' + functionName)
+     console.log(${movieExecute.title} + " " + ${functionName})
  }
 }
 

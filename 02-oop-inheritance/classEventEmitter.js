@@ -8,7 +8,7 @@ class eventEmitter {
     }
   }
   on (event, callback) {
-    if (this.listeners[event] != callback) {
+    if (this.listeners[event] !== callback) {
       this.listeners[event] = callback
     }
   }
