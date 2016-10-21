@@ -17,11 +17,11 @@ window.onload = function () {
     object.createIndex("textIndex", "text", { unique : false });
   };
 
-  dataBase.onsuccess = function (e) {
+  dataBase.onsuccess = function (error) {
     alert("Carga Completada");
   };
 
-  dataBase.onerror = function (e)  {
+  dataBase.onerror = function (error)  {
     alert("Error");
   };
 }
@@ -43,7 +43,6 @@ function IndexedSave() {
 }
 
 function add () {
-  alert("a");
   let active = dataBase.result;
   let data = active.transaction("textId", "readwrite");
   let object = data.objectStore("textId");
@@ -96,3 +95,32 @@ function showDataBase() {
     }
   };
 }
+
+
+function ClearDataBase() {
+  alert("Error!");
+};
+
+
+
+function handleFileSelect(evt) {
+   evt.stopPropagation();
+   evt.preventDefault();
+
+   let files = evt.dataTransfer.files;
+   let reader = new FileReader();
+   reader.onload = function(event) {
+        document.getElementById('drop_zone').value = event.target.result;
+   }
+   reader.readAsText(files[0],"UTF-8");
+ }
+
+ function handleDragOver(evt) {
+   evt.stopPropagation();
+   evt.preventDefault();
+   evt.dataTransfer.dropEffect = 'copy';
+ }
+
+ let dropZone = document.getElementById('drop_zone');
+ dropZone.addEventListener('dragover', handleDragOver, false);
+ dropZone.addEventListener('drop', handleFileSelect, false);
