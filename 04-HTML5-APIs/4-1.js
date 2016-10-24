@@ -1,126 +1,124 @@
-function addText(){
-  let index = document.getElementById("TextInput");
-  localStorage.setItem("data", index.value);
-  let localElement = localStorage.getItem("data");
-  alert("addtext funciona");
+function LocalStorageSave () {
+  localStorage.setItem("textAreaLocal", document.querySelector("#textContent").value);
+  console.log( localStorage.getItem("textAreaLocal") );
 }
-
 
 window.onload = function () {
   let indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-
   dataBase = indexedDB.open("DataBase", 1);
-
   dataBase.onupgradeneeded = function (e) {
     let db = event.target.result;
     object = db.createObjectStore("textData", { keyPath : "text" });
     object.createIndex("textIndex", "text", { unique : false });
   };
-
-  dataBase.onsuccess = function (error) {
-    alert("Carga Completada");
+  dataBase.onsuccess = function (e) {
+    console.log("Works");
   };
-
-  dataBase.onerror = function (error)  {
-    alert("Error");
+  dataBase.onerror = function (e)  {
+    console.log("Error");
   };
+  function handleFileSelect(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    let files = evt.dataTransfer.files;
+    let reader = new FileReader();
+    reader.onload = function(event) {
+         document.getElementById("DropZone").value = event.target.result;
+    }
+    reader.readAsText(files[0],"utf-8");
+  }
+  function handleDragOver(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = "copy";
+  }
+  let dropZone = document.getElementById("DropZone");
+  dropZone.addEventListener("dragover", handleDragOver, false);
+  dropZone.addEventListener("drop", handleFileSelect, false);
 }
 
-function IndexedSave() {
+function IndexedDBSave () {
   let active = dataBase.result;
   let data = active.transaction("textData", "readwrite").objectStore("textData");
-  let request = data.put({
+  let request = data.put( {
     keyPath: 1,
-    text: document.querySelector("#TextInput").value
+    text: document.querySelector("#textContent").value
   });
   request.onerror = function (e) {
-    alert("Error")
+                    console.log("Error");
   };
   data.oncomplete = function (e) {
-    document.querySelector("#TextInput").value = "";
-    alert("Objeto agregado correctamente");
+   document.querySelector("#textContent").value = "";
+   alert("Works");
   };
 }
 
-function add () {
+function LocalStorageClear () {
+  localStorage.clear();
+}
+
+function IndexedDBClear () {
   let active = dataBase.result;
-  let data = active.transaction("textId", "readwrite");
-  let object = data.objectStore("textId");
-  let request = object.put({
-      text: document.querySelector("#TextInput").value
-  });
-  data.oncomplete = function (event) {
-    document.querySelector("#TextInput").value = "";
-    alert("Object successfully added");
-    loadAll();
+  let transaction = active.transaction("textData", "readwrite");
+  transaction.oncomplete = function(event) {
+    console.log("Completed");
+  };
+  transaction.onerror = function(event) {
+    console.log("Error");
+  };
+  let objectStore = transaction.objectStore("textData");
+  let objectStoreRequest = objectStore.clear();
+  objectStoreRequest.onsuccess = function(event) {
+    console.log("Deleted");
   };
 }
 
-function loadAll() {
-  let active = dataBase.result;
-  let data = active.transaction("textId", "readonly");
-  let object = data.objectStore("textId");
-  let elements = [];
-  object.openCursor().onsuccess = function (event) {
-    alert("llego al event");
-    let result = event.target.result;
+//WebSocket
 
-    if (result === null) {
-        return;
-    }
+let wsUri = "ws://echo.websocket.org/";
+let output;
 
-    elements.push(result.value);
-    result.continue();
-  }
+function init() {
+  output = document.getElementById("output");
+  testWebSocket();
 }
 
-function showDataBase() {
-  let dataBase = indexedDB.open("DataBase", 1);
-  alert("sa");
-  let active = dataBase.result;
-  let data = active.transaction("textId","readonly");
-  let objectStore = data.objectStore("textId");
-  let request = objectStore.get("00-03");
-
-  request.onerror = function(event) {
-    alert("Error!");
-  };
-
-  request.onsuccess = function(event) {
-    if(request.result) {
-      alert("id: " + request.result.textId + ", text: " + request.result.TextInput);
-    }
-    else {
-      alert("cant be found");
-    }
-  };
+function testWebSocket() {
+  websocket = new WebSocket(wsUri);
+  websocket.onopen = function(evt) { onOpen(evt) };
+  websocket.onclose = function(evt) { onClose(evt) };
+  websocket.onmessage = function(evt) { onMessage(evt) };
+  websocket.onerror = function(evt) { onError(evt) };
 }
 
+function onOpen(evt) {
+  writeToScreen("Works");
+  doSend("WebSocket works");
+}
 
-function ClearDataBase() {
-  alert("Error!");
-};
+function onClose(evt) {
+  writeToScreen("Error");
+}
 
+function onMessage(evt) {
+  writeToScreen("<span style="color: blue;">RESPONSE: " + evt.data+"</span>");
+  websocket.close();
+}
 
+function onError(evt) {
+  writeToScreen("<span style="color: red;">ERROR:</span> " + evt.data);
+}
 
-function handleFileSelect(evt) {
-   evt.stopPropagation();
-   evt.preventDefault();
+function doSend(message) {
+  writeToScreen("SENT: " + message);
+  websocket.send(message);
+}
 
-   let files = evt.dataTransfer.files;
-   let reader = new FileReader();
-   reader.onload = function(event) {
-        document.getElementById('drop_zone').value = event.target.result;
-   }
-   reader.readAsText(files[0],"UTF-8");
- }
+function writeToScreen(message) {
+  let pre = document.createElement("p");
+  pre.style.wordWrap = "break-word";
+  pre.innerHTML = message;
+  output.appendChild(pre);
+}
 
- function handleDragOver(evt) {
-   evt.stopPropagation();
-   evt.preventDefault();
-   evt.dataTransfer.dropEffect = 'copy';
- }
-
- let dropZone = document.getElementById('drop_zone');
- dropZone.addEventListener('dragover', handleDragOver, false);
- dropZone.addEventListener('drop', handleFileSelect, false);
+window.addEventListener("load", init, false);

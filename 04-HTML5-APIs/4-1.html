@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html class="html" lang="">
+<html>
   <head>
-    <title>Topic4-Api</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="4-1.css">
-    <script type="text/javascript" src="4-1.js"> </script>
+    <title>IndexedDB</title>
+    <script type="text/javascript" src="4-1.js"></script>
   </head>
   <body>
-   <input type="text" id="TextInput" placeholder="Enter some text"/>
-   <button type="button" onclick="addText();">Save</button>
-   <button type="button" name="IndexedSave" onclick="IndexedSave()">Indexed</button>
-   <button type="button" name="showDataBase" onclick="showDataBase()">Show</button>
-   <button type="button" name="ClearDataBase" onclick="ClearDataBase()">Clear</button>
-   <div id="drop_zone" ondrop="handleFileSelect(event)" ondragover="handleDragOver(event)"></div>
+    <textarea class="textAreaContent" rows="5" cols="50" id="textContent">
+    </textarea>
+    <div>
+      <button onclick="LocalStorageSave()" id="buttonLocalSave" type="button" name="button">Local Save</button>
+      <button onclick="IndexedDBSave()" id="buttonindexedDBsave" type="button" name="button">IndexedDB Save</button>
+      <button onclick="LocalStorageClear()" id="buttonLocalClear" type="button" name="button">Clear Local</button>
+      <button onclick="IndexedDBClear()" id="buttonDBclear" type="button" name="button">Clear IndexedDB</button>
+    </div>
 
-
- </body>
+    <textarea class="textAreaContent" id="DropZone">Drop the files</textarea>
+    <div>
+      <h2 class="webSocketTitle">WebSocket Test</h2>
+      <div id="output"></div>
+    </div>
+  </body>
 </html>
