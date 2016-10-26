@@ -17,20 +17,20 @@ window.onload = function () {
   dataBase.onerror = function (e)  {
     console.log("Error");
   };
-  function handleFileSelect(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    let files = evt.dataTransfer.files;
+  function handleFileSelect(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    let files = event.dataTransfer.files;
     let reader = new FileReader();
     reader.onload = function(event) {
          document.getElementById("DropZone").value = event.target.result;
     }
     reader.readAsText(files[0],"utf-8");
   }
-  function handleDragOver(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    evt.dataTransfer.dropEffect = "copy";
+  function handleDragOver(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
   }
   let dropZone = document.getElementById("DropZone");
   dropZone.addEventListener("dragover", handleDragOver, false);
@@ -45,7 +45,7 @@ function IndexedDBSave () {
     text: document.querySelector("#textContent").value
   });
   request.onerror = function (e) {
-                    console.log("Error");
+    console.log("Error");
   };
   data.oncomplete = function (e) {
    document.querySelector("#textContent").value = "";
@@ -82,43 +82,35 @@ function init() {
   output = document.getElementById("output");
   testWebSocket();
 }
-
 function testWebSocket() {
   websocket = new WebSocket(wsUri);
-  websocket.onopen = function(evt) { onOpen(evt) };
-  websocket.onclose = function(evt) { onClose(evt) };
-  websocket.onmessage = function(evt) { onMessage(evt) };
-  websocket.onerror = function(evt) { onError(evt) };
+  websocket.onOpen(event)
+  websocket.onClose(event)
+  websocket.onMessage(event)
+  websocket.onError(event)
 }
-
-function onOpen(evt) {
+function onOpen(event) {
   writeToScreen("Works");
   doSend("WebSocket works");
 }
-
-function onClose(evt) {
+function onClose(event) {
   writeToScreen("Error");
 }
-
-function onMessage(evt) {
-  writeToScreen("<span style="color: blue;">RESPONSE: " + evt.data+"</span>");
+function onMessage(event) {
+  writeToScreen(`<span style= ${color: blue} ; >RESPONSE: ${event.data} </span>`);
   websocket.close();
 }
-
-function onError(evt) {
-  writeToScreen("<span style="color: red;">ERROR:</span> " + evt.data);
+function onError(event) {
+  writeToScreen(`<span style= ${color: red}; >ERROR:</span> ${event.data}`);
 }
-
 function doSend(message) {
-  writeToScreen("SENT: " + message);
+  writeToScreen(`SENT: ${message}`);
   websocket.send(message);
 }
-
 function writeToScreen(message) {
-  let pre = document.createElement("p");
-  pre.style.wordWrap = "break-word";
-  pre.innerHTML = message;
+  let Message = document.createElement("p");
+  Message.style.wordWrap = "break-word";
+  Message.innerHTML = message;
   output.appendChild(pre);
 }
-
 window.addEventListener("load", init, false);

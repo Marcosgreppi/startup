@@ -1,6 +1,5 @@
 window.onload = function(){
   let canvas = document.getElementById('canvas');
-  console.log(document.getElementById('canvas'))
   if (canvas.getContext){
     let ctx = canvas.getContext('2d');
     for(let i=0;i<4;i++){
