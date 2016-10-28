@@ -1,21 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import MovieInput from "./MovieInput";
-import MovieList from "./MovieList";
+import InputMovie from "./InputMovie";
+import ListFavMovies from "./ListFavMovies";
 
-class Movie extends React.Component{
+class Movies extends React.Component{
   render () {
     return (
         <div className="movie">
-            <MovieInput onSubmit={this.handleMovieInputSubmit} /> <br />
-            <MovieList onList={this.handleMovieFavouriteList} />
+            <InputMovie onSubmit={this.handleInputMovieSubmit} /> <br />
+            <ListFavMovies onList={this.handleMovieFavouriteList} />
             <h3 id="favouriteListTitle" />
             <ul id="list" />
         </div>
     );
   }
 
-  handleMovieInputSubmit (event) {
+  handleInputMovieSubmit (event) {
     let movies = localStorage.getItem("movieStorage");
     if (movies === null) {
       localStorage.setItem("movieStorage", JSON.stringify(event));
@@ -25,7 +25,6 @@ class Movie extends React.Component{
   }
 
   handleMovieFavouriteList (event) {
-    console.log("a");
     let movies = localStorage.getItem("movieStorage");
     let array = localStorage.movieStorage.split(";");
     let object = {}
@@ -55,4 +54,4 @@ class Movie extends React.Component{
   }
 };
 
-export default Movie;
+export default Movies;

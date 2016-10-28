@@ -1,6 +1,6 @@
 import React from "react";
 
-class MovieInput extends React.Component {
+class InputMovie extends React.Component {
   constructor(props) {
     super(props);
     this.state = {title: "",year: "",duration: "", favourite: false};
@@ -28,7 +28,6 @@ class MovieInput extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log("guardo", this.props)
     if (this.props.onSubmit) {
       this.props.onSubmit(this.state);
     }
@@ -37,14 +36,14 @@ class MovieInput extends React.Component {
   render() {
     return (
       <div>Movie<br/>
-            <input type="text" placeholder="Title" name="title" value={this.state.title} onChange={this.handleChangeTitle} /><br /><br />
-            <input type="text" placeholder="Year" name="year" value={this.state.year} onChange={this.handleChangeYear} /><br /><br />
-            <input type="text" placeholder="Duration" name="duration" value={this.state.duration} onChange={this.handleChangeDuration}/><br /><br />
-            <label />Mark as favourite <input type="checkbox" value={this.state.favourite} onChange={this.handleFavourite} /> <br /> <br />
+            <input type="text" placeholder="Title" name="title" value={this.state.title} onChange={this.handleChangeTitle} /><br/><br/>
+            <input type="text" placeholder="Year" name="year" value={this.state.year} onChange={this.handleChangeYear} /><br/><br/>
+            <input type="text" placeholder="Duration" name="duration" value={this.state.duration} onChange={this.handleChangeDuration}/><br/><br/>
+            <label/> Favourite <input type="checkbox" value={this.state.favourite} onChange={this.handleFavourite} /> <br/> <br/>
             <button onClick={this.handleSubmit.bind(this)}>Submit</button>
       </div>
     );
   }
 };
 
-export default MovieInput;
+export default InputMovie;
