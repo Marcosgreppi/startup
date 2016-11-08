@@ -19,7 +19,7 @@ class App extends React.Component {
     );
   }
 }
-
+console.log('test', Router)
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={App}>
