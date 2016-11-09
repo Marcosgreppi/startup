@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Route, Link, browserHistory } from "react-router";
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import reducer from './reducer';
 import MovieApp from "./movieApp.js";
 import MovieList from "./movieList.js";
 import MovieForm from "./movieForm.js";
@@ -19,7 +22,7 @@ class App extends React.Component {
     );
   }
 }
-console.log('test', Router)
+
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={App}>

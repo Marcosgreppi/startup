@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router";
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import reducer from './reducer';
 
 export default class MovieList extends React.Component {
   render() {
@@ -29,7 +32,7 @@ export default class MovieList extends React.Component {
                   <th>{movie.year}</th>
                   <th>{movie.duration}</th>
                   <th><Link to={`/movie/${movie.id}`}>Edit</Link></th>
-                  <th><button onClick={() => { this.props.onDelete(movie) }}>Delete</button></th>
+                  <th><button onClick={() => {this.props.onDelete(movie) }}>Delete</button></th>
                 </tr>
               ))}
             </tbody>

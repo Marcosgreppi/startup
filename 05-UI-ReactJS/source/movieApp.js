@@ -2,6 +2,9 @@ import React from "react";
 import Movie from "./movie.js";
 import MovieList from "./movieList.js";
 import MovieForm from "./movieForm.js";
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import reducer from './reducer';
 
 export default class MovieApp extends React.Component {
   constructor(props) {
@@ -18,8 +21,6 @@ export default class MovieApp extends React.Component {
   }
 
   render() {
-    /*
-*/
     return (
       <div className="movie-app">
       <MovieForm
@@ -27,6 +28,7 @@ export default class MovieApp extends React.Component {
         selectedMovie={this.state.selectedMovie}
         onReset={this.handleReset}
       />
+      
       <MovieList
         movies={this.state.movies}
         onEdit={this.handleEdit}

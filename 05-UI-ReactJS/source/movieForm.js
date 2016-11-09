@@ -1,5 +1,8 @@
 import React from "react";
 import Movie from "./movie.js";
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import reducer from './reducer';
 
 export default class MovieForm extends React.Component {
   constructor(props) {
