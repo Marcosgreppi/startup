@@ -1,44 +1,49 @@
 import React from "react";
-import { Link } from "react-router";
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
-import reducer from './reducer';
+import {connect} from "react-redux";
+import {Link} from "react-router";
+import {removeMovie} from "./redux/action";
+import {handleMovies} from "./redux/reducer";
+import store from "./store";
+import Movie from "./movie";
 
-export default class MovieList extends React.Component {
-  render() {
-    if(!this.props.movies.length) {
-      return (
-        <div className="movies-table">
-          <h3 className="no-movies">No movies to show</h3>
-        </div>
-      );
-    } else {
-      return (
-        <div className="movies-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Year</th>
-                <th>Duration</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.props.movies.map(movie => (
-                <tr key={movie.id}>
-                  <th>{movie.title}</th>
-                  <th>{movie.year}</th>
-                  <th>{movie.duration}</th>
-                  <th><Link to={`/movie/${movie.id}`}>Edit</Link></th>
-                  <th><button onClick={() => {this.props.onDelete(movie) }}>Delete</button></th>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      );
+class MovieList extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.renderItem = this.renderItem.bind(this);
+  }
+
+  render () {
+    return (
+      <div>
+        <ul>
+          {this.renderItems()}
+        </ul>
+      </div>
+
+    );
+  }
+
+  removeMovie (index) {
+    this.props.onDelete(index)
+  }
+
+  renderItems () {
+    if(this.props.movies !== undefined){
+      return this.props.movies.map(this.renderItem);
     }
   }
-}
+
+  renderItem (item, index) {
+    let boundItemClick = this.initializeState;
+    return (
+      <li key={index}>
+        {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
+        <Link to={`MovieInput/${JSON.stringify(item, item.new=false, item.id=index)}`}><button className="buttonSelect">Edit</button></Link>
+        <button className="buttonSelect" onClick={this.removeMovie.bind(this, index)}>Remove</button>
+      </li>
+    );
+  }
+};
+
+export default MovieList;

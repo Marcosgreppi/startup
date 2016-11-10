@@ -1,33 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Router, Route, Link, browserHistory } from "react-router";
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
-import reducer from './reducer';
-import MovieApp from "./movieApp.js";
-import MovieList from "./movieList.js";
-import MovieForm from "./movieForm.js";
+import React from "react"
+import ReactDOM from "react-dom"
+import {handleMovies} from "./redux/reducer";
+import {initializeState} from "./redux/action";
+import store from "./store";
+import Application from "./movieApp"
 
-class App extends React.Component {
-  render () {
-    return (
-      <div className="app">
-        <h1>Movies</h1>
-        <ul role="nav">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/movies">List</Link></li>
-        </ul>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+store.dispatch(initializeState());
 
-ReactDOM.render((
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <Route path="movies" component={MovieApp} />
-      <Route path="movie/:movieId" component={MovieForm} />
-    </Route>
-  </Router>
-), document.getElementById("app"));
+ReactDOM.render(
+  <Application />
+  , document.getElementById("app"));
