@@ -23,12 +23,12 @@ class MoviesHandler extends React.Component {
   deleteMovie (index) {
     store.dispatch(deleteMovie(index))
   }
-};
+}
 
 function mapStateToProps (state) {
   return {
     movies: state
-  };
+  }
 }
 
 export default connect(mapStateToProps)(MoviesHandler);

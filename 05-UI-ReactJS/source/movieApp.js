@@ -20,8 +20,20 @@ class Application extends Component {
     )
   }
 }
-const NotFound = () => (
-<h1>Not Found this!</h1>)
+// const NotFound = () => (
+class NotFound extends React.Component {
+  constructor (props) {
+    super(props);
+  }
+
+  render () {
+    return (
+      <div>
+        <h1>Not Found this!</h1>
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   return {

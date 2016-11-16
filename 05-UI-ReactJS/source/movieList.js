@@ -15,12 +15,9 @@ class MovieList extends React.Component {
 
   render () {
     return (
-      <div>
-        <ul>
-          {this.renderItems()}
-        </ul>
-      </div>
-
+      <ul>
+        {this.renderItems()}
+      </ul>
     );
   }
 

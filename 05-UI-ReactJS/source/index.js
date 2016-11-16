@@ -5,8 +5,6 @@ import {initializeState} from "./redux/action";
 import store from "./store";
 import Application from "./movieApp"
 
-store.dispatch(initializeState());
-
 ReactDOM.render(
   <Application />
   , document.getElementById("app"));
