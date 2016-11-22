@@ -15,7 +15,7 @@ class Movie extends React.Component{
   render () {
     return (
       <div className="movie">
-        <Link to={`MovieInput/`}><button className="buttonSelect">Movie Input</button></Link>
+        <Link to={`MovieInput/0`}><button className="buttonSelect">Movie Input</button></Link>
         <Link to="/MoviesHandler"><button className="buttonSelect">Movie List</button></Link>
       </div>
     );

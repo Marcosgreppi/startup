@@ -3,28 +3,33 @@ import {connect} from "react-redux";
 import {Link} from "react-router";
 import {addMovie, editMovie, initializeState} from "./redux/action";
 import {handleMovies} from "./redux/reducer";
-import Movie from "./movie";
+import Movie from "./main";
 import store from "./store";
 
 class MovieInput extends React.Component {
   constructor(props) {
     super(props);
-
     let movies = JSON.parse(this.props.params.movieID)
-
     this.state = {
-      title: movies.title,
-      year: movies.year,
-      duration: movies.duration,
-      favourite: movies.favourite,
-      id: movies.id
-      }
-
+        title: movies.title,
+        year: movies.year,
+        duration: movies.duration,
+        favourite: movies.favourite,
+        id: movies.id
+    };
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeYear = this.handleChangeYear.bind(this);
     this.handleChangeDuration = this.handleChangeDuration.bind(this);
     this.handleFavourite = this.handleFavourite.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  this.defaultProps = {
+    title: "",
+    year: "",
+    duration: "",
+    favourite: "",
+    id: "",
   }
 
   handleChangeTitle (event) {
