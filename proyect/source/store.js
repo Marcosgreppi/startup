@@ -1,10 +1,9 @@
-import handler from "./reducer";
-import { createStore } from "redux";
-import initializeState from "./action"
+import {createStore} from "redux";
+import handleMovies from "./reducer.js";
+import initializeState from "./reducer.js"
 
+let store = createStore(handleMovies);
 
-let store = createStore(handler);
-
-
+store.dispatch(initializeState());
 
 export default store

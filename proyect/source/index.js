@@ -1,12 +1,34 @@
-import React from "react"
+import React, {Component} from "react"
 import ReactDOM from "react-dom"
-import {handler} from "./reducer";
+import {Router, Route, Link, IndexRoute, hashHistory, browserHistory} from "react-router"
+import {Provider} from "react-redux"
+import {handleMovies} from "./reducer";
 import {initializeState} from "./action";
-import store from "./store";
-import Application from "./main"
+import store from "./store"
+import Movie from "./main";
+import searcher from "./searcher";
+import handler from "./handler";
 
-store.dispatch(initializeState());
+
+class NotFound extends Component {
+  render () {
+    <h1>Not Found this!</h1>
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    todos: App(state.movie)
+  }
+}
 
 ReactDOM.render(
-  <Application />
-  , document.getElementById("app"));
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={Movie} />
+        <Route path="/searcher/(:movieID)" component={searcher} handler={searcher}/>
+        <Route path="/handler" component={handler} />
+      <Route path="*" component={NotFound} />
+    </Router>
+  </Provider>
+, document.getElementById("app"));

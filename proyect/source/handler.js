@@ -3,10 +3,10 @@ import {connect} from "react-redux";
 import {handleMovies} from "./reducer";
 import {deleteMovie} from "./action";
 import store from "./store";
-import Movie from "./movie";
-import MovieList from "./movieList";
+import Movie from "./main";
+import list from "./list";
 
-class MoviesHandler extends React.Component {
+class handler extends React.Component {
   constructor (props) {
     super(props);
   }
@@ -15,7 +15,7 @@ class MoviesHandler extends React.Component {
     return (
       <div>
         <Movie />
-        <MovieList movies={this.props.movies} onDelete={this.deleteMovie}/>
+        <list movies={this.props.movies} onDelete={this.deleteMovie}/>
       </div>
     );
   }
@@ -23,12 +23,12 @@ class MoviesHandler extends React.Component {
   deleteMovie (index) {
     store.dispatch(deleteMovie(index))
   }
-};
+}
 
 function mapStateToProps (state) {
   return {
     movies: state
-  };
+  }
 }
 
-export default connect(mapStateToProps)(MoviesHandler);
+export default connect(mapStateToProps)(handler);

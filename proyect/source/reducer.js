@@ -1,6 +1,6 @@
-import { ADD_MOVIE, LIST_MOVIE, EDIT_MOVIE, INITIALIZE_STATE, DELETE_MOVIE } from "./action"
+import { ADD_MOVIE, LIST_MOVIE, EDIT_MOVIE, INITIALIZE_STATE, DELETE_MOVIE } from "./action";
 
-function handler(state = [ { movies: {} } ], action) {
+function handleMovies(state = [ { movies: {} } ], action) {
   let movies = JSON.parse(localStorage.getItem("movieStorage")) || [];
   switch (action.type) {
 
@@ -28,4 +28,4 @@ function handler(state = [ { movies: {} } ], action) {
   }
 }
 
-export default handler
+export default handleMovies
